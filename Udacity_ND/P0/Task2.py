@@ -20,9 +20,9 @@ class CallHeader(IntEnum):
     DURATION = 3,
 
 
-with open('texts.csv', 'r') as f:
-    reader = csv.reader(f)
-    texts = list(reader)
+# with open('texts.csv', 'r') as f:
+#     reader = csv.reader(f)
+#     texts = list(reader)
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)

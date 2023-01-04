@@ -31,11 +31,12 @@ def task4():
     with open('calls.csv', 'r') as f:
         reader = csv.reader(f)
         for call_rec in reader:
-            caller_numbers.add(call_rec[CallHeader.CALLER])
+            if not call_rec[CallHeader.CALLER].startswith('140'):
+                caller_numbers.add(call_rec[CallHeader.CALLER])
             called_numbers.add(call_rec[CallHeader.RECEIVER])
     # print(f"length of callers {len(caller_numbers)} length of called {len(called_numbers)}")
     # print(f"length of senders {len(text_sending_numbers)} length of txt receivers {len(text_receiving_numbers)}")
-    res_set = caller_numbers - (called_numbers | text_receiving_numbers | text_sending_numbers)
+    res_set = caller_numbers - called_numbers - text_receiving_numbers - text_sending_numbers
 
     # print(f"length of result {len(res_set)}")
     print("These numbers could be telemarketers: ")

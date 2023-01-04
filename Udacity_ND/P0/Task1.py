@@ -28,13 +28,12 @@ with open('texts.csv', 'r') as f:
         unique_numbers.update([record[TextHeader.SENDER], record[TextHeader.RECEIVER]])
 
     # texts = list(reader) this will create unnecessary loop
-print(f"There are {len(unique_numbers)} different telephone numbers in the records.")
+# print(f"There are {len(unique_numbers)} different telephone numbers in the records.")
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     for record in reader:
         unique_numbers.update([record[CallHeader.CALLER], record[CallHeader.RECEIVER]])
-    calls = list(reader)
 
 print(f"There are {len(unique_numbers)} different telephone numbers in the records.")
 

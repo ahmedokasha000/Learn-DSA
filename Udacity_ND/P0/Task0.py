@@ -22,8 +22,7 @@ class CallHeader(IntEnum):
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
-    texts = list(reader)
-    first_rec = texts[0]
+    first_rec = next(reader)
     print(f"First record of texts, {first_rec[TextHeader.SENDER]} texts {first_rec[TextHeader.RECEIVER]} at time {first_rec[TextHeader.TS]}")
 
 with open('calls.csv', 'r') as f:

@@ -1,0 +1,68 @@
+# Time Complexity Analysis
+
+## TASK 0
+
+### 1. getting the first record of texts
+
+Complexity = O(1) 
+
+The input was a file of n text records but since we only needed to read the first record
+we didn't iterate over the whole file. Instead, we just read the first record and stopped there.
+
+### 2. getting the last record of calls
+
+Complexity = O(n) 
+
+In that case, we still had n calls record we had to iterate over the whole file with list(reader)
+which basically reads the file line by line. As a result, we iterated over n line to get the last record.
+
+Total complexity for Task0
+
+Complexity = O(n) + O(1) = O(n)
+
+Although, number of calls != number of messages. but we still will end up with the same results since
+
+O(2n), O(4n), O(3n) will still be approximated to O(n)
+
+## TASK 1
+
+Complexity = O(n) 
+
+for simplicity let's assume we have only one input dataset of length = n  (text_records + call_records). In the current solution
+I iterated over each input to read it, then we added it to a python set which is based on hash
+tables with insertion complexity of O(1). One more useful feature is that sets can't have duplicate values inside.
+
+After one iteration over the whole input, we can get the output by finding the length of the resulting set. As a result,
+the time complexity of the solution can be approximated to O(n)
+
+## TASK 2
+
+Complexity = O(n) 
+
+Our input is a dataset of n call records. In the solution, I had to iterate over the whole dataset only once to
+get the longest call records and then extract the called number from it. Since I needed to iterate only once,
+the complexity can be approximated to O(n). 
+
+Note: since I didn't need the text records in anything, iterating over it is useless and will be just a waste of time.
+
+## TASK 3
+
+Complexity = O(n)
+
+Our input is a dataset of n call records. In the solution, I needed to iterate only once over the dataset to calculate the output.
+To give the code better structure, a PhoneNumber class was created to store and parse telephone numbers making the process of extracting
+their types & prefixes easier. A python set was used since it doesn't allow duplicates and has an insert complexity of O(1).
+since we don't have any additional inner loops, complexity will end up = O(n).
+
+Note: since I didn't need the text records in anything, iterating over it is useless and will be just a waste of time.
+
+## TASK4
+
+Complexity = O(n)
+
+We can assume that the input is a dataset of n records (calls + messages). In the solution, I had to iterate only once over the dataset to read
+all the records and calculate unique sets for callers, called numbers, text senders, and text receivers. Python sets were used since
+they don't allow duplicates and have an insert complexity of O(1). Since python sets difference operation complexity  O(len(set1)) for (set1-set2)
+In the worst-case scenario when the callers length = n, this will increase the complexity by O(n).  https://wiki.python.org/moin/TimeComplexity 
+
+In the end, complexity can be approximated to O(kn) which is still O(n).

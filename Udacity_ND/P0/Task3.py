@@ -89,17 +89,17 @@ def task3():
         calls_from_to_bang_count = 0
         for rec in reader:
             if rec[CallHeader.CALLER].startswith(bangalore_code):
+                calls_from_bang_count += 1
                 called_number = PhoneNumber(rec[CallHeader.RECEIVER])
                 called_number.process()
                 if called_number.type != PhoneType.TELEMAR:
                     area_mobile_prefixes.add(called_number.prefix)
-                    calls_from_bang_count += 1
                     if called_number.type == PhoneType.FIXED and called_number.prefix == '080':
                         calls_from_to_bang_count += 1
 
         print(f"The numbers called by people in Bangalore have codes:")
         print(*sorted(area_mobile_prefixes), sep="\n")
-        print(f"{calls_from_to_bang_count/(calls_from_bang_count+1e-7):.2f} percent of calls from fixed lines in Bangalore are calls")
+        print(f"{calls_from_to_bang_count/(calls_from_bang_count+1e-7):.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
 
 
 def main():
