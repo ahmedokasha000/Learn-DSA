@@ -5,7 +5,7 @@ It's ok if you don't understand how to read files.
 import csv
 
 from enum import IntEnum
-import parse
+# import parse
 
 
 class TextHeader(IntEnum):
@@ -28,9 +28,9 @@ class PhoneType(IntEnum):
 
 
 class PhoneNumber():
-    fixed_line_parser = parse.compile("({prefix}){number}")
-    mobile_parser = parse.compile("{prefix_plus_digit} {number}")
-    telemark_parser = parse.compile("140{number}")
+    # fixed_line_parser = parse.compile("({prefix}){number}")
+    # mobile_parser = parse.compile("{prefix_plus_digit} {number}")
+    # telemark_parser = parse.compile("140{number}")
 
     def __init__(self, raw_val):
         self._type = None
@@ -55,23 +55,20 @@ class PhoneNumber():
         return self._number
 
     def process(self):
-        res = self.fixed_line_parser.parse(self.raw_value)
-        if res is not None:
+        # res = self.fixed_line_parser.parse(self.raw_value)
+        if self.raw_value.startswith('('):
             self._type = PhoneType.FIXED
-            self._prefix = res['prefix']
-            self._number = res['number']
+            self._prefix = self.raw_value[self.raw_value.find('(') +1 : self.raw_value.find(')')]
             return
-        res = self.mobile_parser.parse(self.raw_value)
-        if res is not None:
+        if ' ' in self.raw_value:
             self._type = PhoneType.MOBILE
-            self._prefix = res['prefix_plus_digit'][:4]
-            self._number = res['prefix_plus_digit'][4:] + res['number']
+            self._prefix = self.raw_value.split(' ')[0][:4]
+            # self._number = res['number']
             return
-        res = self.telemark_parser.parse(self.raw_value)
-        if res is not None:
+        if self.raw_value.startswith('140'):
             self._type = PhoneType.TELEMAR
             self._prefix = '140'
-            self._number = res['number']
+            # self._number = res['number']
             return
         raise Exception(' Could not parese given number')
 
@@ -96,7 +93,7 @@ def task3():
                     area_mobile_prefixes.add(called_number.prefix)
                     if called_number.type == PhoneType.FIXED and called_number.prefix == '080':
                         calls_from_to_bang_count += 1
-
+        # print(f"{len(area_mobile_prefixes)}")
         print(f"The numbers called by people in Bangalore have codes:")
         print(*sorted(area_mobile_prefixes), sep="\n")
         print(f"{calls_from_to_bang_count/(calls_from_bang_count+1e-7):.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")

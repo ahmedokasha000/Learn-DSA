@@ -39,30 +39,35 @@ the time complexity of the solution can be approximated to O(n)
 
 Complexity = O(n) 
 
-Our input is a dataset of n call records. In the solution, I had to iterate over the whole dataset only once to
-get the longest call records and then extract the called number from it. Since I needed to iterate only once,
-the complexity can be approximated to O(n). 
+Our input is a dataset of n call records. In the solution, I had to iterate over the whole dataset to get duration each
+number spent on the phone. Then we had to iterate over the number->call_duration dictionary to find the number with max call time.
+In the end, we can say that we iterated twice over the input dataset(at worst case) making complexity = O(2n) which is still 
+approximated to O(n)
 
 Note: since I didn't need the text records in anything, iterating over it is useless and will be just a waste of time.
 
 ## TASK 3
 
-Complexity = O(n)
+Complexity = O(nlog(n))
 
 Our input is a dataset of n call records. In the solution, I needed to iterate only once over the dataset to calculate the output.
 To give the code better structure, a PhoneNumber class was created to store and parse telephone numbers making the process of extracting
 their types & prefixes easier. A python set was used since it doesn't allow duplicates and has an insert complexity of O(1).
-since we don't have any additional inner loops, complexity will end up = O(n).
+Although sorting the results is a minor issue in our case since we only sort a small segment of the whole dataset, at worst case scenario when having
+all unique number and all are being called from Bangalore, we will have a complexity of O(nlog(n))
 
 Note: since I didn't need the text records in anything, iterating over it is useless and will be just a waste of time.
 
 ## TASK4
 
-Complexity = O(n)
+Complexity = O(nlog(n))
 
 We can assume that the input is a dataset of n records (calls + messages). In the solution, I had to iterate only once over the dataset to read
 all the records and calculate unique sets for callers, called numbers, text senders, and text receivers. Python sets were used since
 they don't allow duplicates and have an insert complexity of O(1). Since python sets difference operation complexity  O(len(set1)) for (set1-set2)
 In the worst-case scenario when the callers length = n, this will increase the complexity by O(n).  https://wiki.python.org/moin/TimeComplexity 
+
+Although sorting the results is a minor issue in our case since we only sort a small segment of the whole dataset, at worst case scenario when having
+all unique number and all the number might be telemarketers, we will have a complexity of O(nlog(n))
 
 In the end, complexity can be approximated to O(kn) which is still O(n).

@@ -31,8 +31,7 @@ def task4():
     with open('calls.csv', 'r') as f:
         reader = csv.reader(f)
         for call_rec in reader:
-            if not call_rec[CallHeader.CALLER].startswith('140'):
-                caller_numbers.add(call_rec[CallHeader.CALLER])
+            caller_numbers.add(call_rec[CallHeader.CALLER])
             called_numbers.add(call_rec[CallHeader.RECEIVER])
     # print(f"length of callers {len(caller_numbers)} length of called {len(called_numbers)}")
     # print(f"length of senders {len(text_sending_numbers)} length of txt receivers {len(text_receiving_numbers)}")

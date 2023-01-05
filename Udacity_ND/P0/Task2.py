@@ -26,11 +26,19 @@ class CallHeader(IntEnum):
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
-    longest_call = next(reader)
+    numbers = {}
     for call_record in reader:
-        if (int(call_record[CallHeader.DURATION]) > int(longest_call[CallHeader.DURATION])):
-            longest_call = call_record
-    print(f"{longest_call[CallHeader.RECEIVER]} spent the longest time, {longest_call[CallHeader.DURATION]} seconds, on the phone during September 2016.")
+        if call_record[CallHeader.CALLER] in numbers:
+            numbers[call_record[CallHeader.CALLER]] += int(call_record[CallHeader.DURATION])
+        else:
+            numbers[call_record[CallHeader.CALLER]] = int(call_record[CallHeader.DURATION])
+        
+        if call_record[CallHeader.RECEIVER] in numbers:
+            numbers[call_record[CallHeader.RECEIVER]] += int(call_record[CallHeader.DURATION])
+        else:
+            numbers[call_record[CallHeader.RECEIVER]] = int(call_record[CallHeader.DURATION])
+    max_dur_number = max(numbers, key=numbers.get)
+    print(f"{max_dur_number} spent the longest time, {numbers[max_dur_number]} seconds, on the phone during September 2016.")
 
 """
 TASK 2: Which telephone number spent the longest time on the phone
