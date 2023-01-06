@@ -96,7 +96,8 @@ def task3():
         # print(f"{len(area_mobile_prefixes)}")
         print(f"The numbers called by people in Bangalore have codes:")
         print(*sorted(area_mobile_prefixes), sep="\n")
-        print(f"{calls_from_to_bang_count/(calls_from_bang_count+1e-7):.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
+        percentage = (calls_from_to_bang_count / (calls_from_bang_count + 1e-7)) * 100
+        print(f"{percentage:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
 
 
 def main():
