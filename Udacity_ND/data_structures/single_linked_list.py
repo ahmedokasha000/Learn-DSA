@@ -115,24 +115,61 @@ class SingleLinkedList:
             node = node.next
         raise ValueError("Value not found in the list.")
 
-def main():
-    sll = SingleLinkedList()
-    sll.append(3)
-    sll.append(2)
-    sll.append(-1)
-    sll.append(0.2)
-    sll.prepend(22)
-    print("Pass" if (sll.to_list() == [22, 3, 2, -1, 0.2]) else "Fail")
-    sll2 = SingleLinkedList()
-    sll2.insert(4, index=0)
-    sll2.insert(5, index=0)
-    sll2.insert(2, index=1)
-    # sll2.insert(2, index=2)
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.value
+            node = node.next
 
+    def insert_ordered(self, value):
+        # If LinkedList is empty
+        if self.head is None:
+            self.head = Node(value)
+            return
 
-    print(f" Sll2 list = {sll2.to_list()}")
-    print(f" Sll2 list = {sll2.len()}")
-    # print(f" searching for  12 = {sll2.search(12).next.value}")
+        # Create a temporary Node object
+        node = self.head
+        prev = None
+        # Iterate till the end of the currrent LinkedList
+        new_node = Node(value)
+        while node is not None:
+            if (value < node.value):
+                if prev is None:
+                    new_node.next = self.head
+                    self.head = new_node
+                    return
+                else:
+                    new_node.next = node
+                    prev.next = new_node
+                    return
+            prev = node
+            node = node.next
+        prev.next = new_node
 
-if __name__ == '__main__':
-    main();
+def reverse( ip_sll):
+    new_reversed_sll = SingleLinkedList()
+    ip_list = ip_sll.to_list()
+    for val in ip_list[::-1]:
+        new_reversed_sll.append(val)
+    return new_reversed_sll
+
+# def main():
+#     sll = SingleLinkedList()
+#     sll.append(3)
+#     sll.append(2)
+#     sll.append(-1)
+#     sll.append(0.2)
+#     sll.prepend(22)
+#     print("Pass" if (sll.to_list() == [22, 3, 2, -1, 0.2]) else "Fail")
+#     sll2 = SingleLinkedList()
+#     sll2.insert(4, index=0)
+#     sll2.insert(5, index=0)
+#     sll2.insert(2, index=1)
+#     # sll2.insert(2, index=2)
+
+#     sll2_reversed = reverse(sll2)
+#     print(f" Sll2 list = {sll2.to_list()}")
+#     print(f" Sll2 list = {sll2.len()}")
+#     print(f" reversed sll2 list = {sll2_reversed.to_list()}")
+# # if __name__ == '__main__':
+# #     main();
