@@ -1,4 +1,4 @@
-from single_linked_list import SingleLinkedList
+from single_linked_list import SingleLinkedList, Node
 
 
 ''' In a NESTED LinkedList object, each node will be a simple LinkedList in itself'''
