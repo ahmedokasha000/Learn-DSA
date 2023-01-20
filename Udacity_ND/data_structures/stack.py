@@ -30,7 +30,11 @@ class Stack:
     def is_empty(self):
         return self._size < 1
 
-
+    def top(self):
+        if not self.is_empty():
+            return self._list.head.value
+        else:
+            raise IndexError("Toping from an empty stack")
 class StackArr:
     def __init__(self, capacity=10):
         self._last_ind = -1
