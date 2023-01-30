@@ -19,8 +19,12 @@
 
 # Exercise - Write your function definition here.
 # Note - Try proposing a non-recursive solution. We will see a recursive solution in the next lesson "Recursion".
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
 
-from single_linked_list import SingleLinkedList, Node
+from my_datastructures.single_linked_list import SingleLinkedList, Node
 
 def add_one(arr):
     sll = SingleLinkedList()

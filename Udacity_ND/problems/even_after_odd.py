@@ -1,4 +1,10 @@
-from single_linked_list import SingleLinkedList, Node
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
+
+from my_datastructures.single_linked_list import SingleLinkedList, Node
+
 
 # Given a linked list with integer data, arrange the elements in such a manner that all nodes with even numbers are placed after odd numbers. Do not create any new nodes and avoid using any other data structure. The relative order of even and odd elements must not change.
 

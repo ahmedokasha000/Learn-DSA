@@ -1,4 +1,9 @@
-from single_linked_list import SingleLinkedList, Node
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
+
+from my_datastructures.single_linked_list import SingleLinkedList, Node
 
 
 ''' In a NESTED LinkedList object, each node will be a simple LinkedList in itself'''
