@@ -70,6 +70,37 @@ class StackArr:
     def stretch(self):
         # print("stretching stack")
         self._arr = self._arr + [0] * len(self._arr)
+
+
+class StackPy:
+    """
+    Stack implementation with python lists.
+    """
+    def __init__(self):
+        self._list = []
+
+    def push(self, value):
+        self._list.append(value)
+
+    def pop(self):
+        if not self.is_empty():
+            return self._list.pop()
+
+        else:
+            raise IndexError("Poping from an empty stack")
+
+    def size(self):
+        return len(self._list)
+
+    def is_empty(self):
+        return len(self._list) < 1
+
+    def top(self):
+        if not self.is_empty():
+            return self._list[-1]
+        else:
+            raise IndexError("Toping from an empty stack")
+
 def main():
     stack1 = Stack()
     for val in range(10):
