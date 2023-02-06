@@ -27,7 +27,7 @@ class TreeNode:
 
     @left.setter
     def left(self, node):
-        if isinstance(node, TreeNode):
+        if isinstance(node, TreeNode) or node is None:
             self._left = node
         else:
             raise ValueError("Tree nodes must be of type TreeNode")
@@ -38,7 +38,7 @@ class TreeNode:
 
     @right.setter
     def right(self, node):
-        if isinstance(node, TreeNode):
+        if isinstance(node, TreeNode) or node is None:
             self._right = node
         else:
             raise ValueError("Tree nodes must be of type TreeNode")
@@ -49,6 +49,7 @@ class TreeNode:
     def __str__(self):
         return f"Node({self.value})"
 
+
 class BinaryTree:
     def __init__(self, root: TreeNode = None):
         self._root = root
@@ -57,6 +58,9 @@ class BinaryTree:
     @property
     def root(self):
         return self._root
+    @root.setter
+    def root(self, node):
+        self._root = node
 
     def traverse_dfs(self, order="preorder"):
         node = self._root
@@ -91,7 +95,6 @@ class BinaryTree:
         cur_level_values, next_level_nodes = [], []
         for node in cur_level_nodes:
             cur_level_values.append(node.value)
-        for node in cur_level_nodes:
             if node.has_left():
                 next_level_nodes.append(node.left)
             if node.has_right():
@@ -105,22 +108,26 @@ class BinaryTree:
     def __repr__(self):
         node = self._root
         if node is not None:
-            return self._traverse_bfs_repr([node])
+            return self._traverse_bfs_repr([node], [str(node.value)])
         else:
             return print([])
 
-    def _traverse_bfs_repr(self, cur_level_nodes):
-        cur_level_values, next_level_nodes = [], []
-        for node in cur_level_nodes:
-            cur_level_values.append(node.value)
+    def _traverse_bfs_repr(self, cur_level_nodes, cur_level_values):
+        next_level_nodes, next_level_values = [], []
         for node in cur_level_nodes:
             if node.has_left():
                 next_level_nodes.append(node.left)
+                next_level_values.append(str(node.left.value))
+            else:
+                next_level_values.append(str("<empty>"))
             if node.has_right():
                 next_level_nodes.append(node.right)
+                next_level_values.append(str(node.right.value))
+            else:
+                next_level_values.append(str("<empty>"))
 
         if len(next_level_nodes) > 0:
-            return "\t|\t".join(cur_level_values) + '\n' + self._traverse_bfs_repr(next_level_nodes)
+            return "\t|\t".join(cur_level_values) + '\n' + self._traverse_bfs_repr(next_level_nodes, next_level_values)
         else:
             return "\t|\t".join(cur_level_values)
 def main():
