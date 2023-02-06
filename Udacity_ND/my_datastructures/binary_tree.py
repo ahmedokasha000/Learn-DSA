@@ -1,4 +1,10 @@
-from stack import StackPy
+
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
+
+from my_datastructures.stack import StackPy
 
 
 class TreeNode:

@@ -1,5 +1,11 @@
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
 
-from binary_tree import TreeNode, BinaryTree
+
+
+from my_datastructures.binary_tree import TreeNode, BinaryTree
 
 class BinarySearchTree(BinaryTree):
     def __init__(self, root: TreeNode = None):

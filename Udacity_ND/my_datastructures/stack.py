@@ -1,5 +1,9 @@
+import sys
+from pathlib import Path
+script_path = Path(__file__).parent.parent
+sys.path.append(f"{script_path}")
 
-from single_linked_list import SingleLinkedList, Node
+from my_datastructures.single_linked_list import SingleLinkedList, Node
 
 
 class Stack:
