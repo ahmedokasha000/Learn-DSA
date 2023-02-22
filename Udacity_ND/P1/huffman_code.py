@@ -11,6 +11,7 @@ class HTNode:
     def __repr__(self):
         return f"<HTNode( value={self.value}, char={self.char}, left={self.left}, right={self.right})>"
 
+
 class PriorityQueue:
     def __init__(self):
         self._heap = []
@@ -88,11 +89,11 @@ def huffman_encoding(data):
     if root.left is None and root.right is None:
         huffman_code = {root.char: '0'}
     else:
-        huffman_code = dict(traverse_dfs(root))
-    print(huffman_code)
+        huffman_code = dict(find_huffman_codes(root))
+    # print(huffman_code)
     encoded_data = encode_data(data, huffman_code)
     ## get first two keys with min value
-    return encoded_data, root, huffman_code
+    return encoded_data, root
 
 def encode_data(data, huffman_code):
     encoded_string = ''
@@ -100,75 +101,51 @@ def encode_data(data, huffman_code):
         encoded_string += huffman_code.get(char)
     return encoded_string
         
-
-def traverse_dfs(node, code=''):
+def find_huffman_codes(node, code=''):
     codes = []
     left_codes, right_codes = [], []
     if node.left is None and node.right is None:
         return [(node.char, code)]
     if node.left is not None:
-        left_codes = traverse_dfs(node.left, code=code + '0')
+        left_codes = find_huffman_codes(node.left, code=code + '0')
     if node.right is not None:
-        right_codes = traverse_dfs(node.right, code=code + '1')
+        right_codes = find_huffman_codes(node.right, code=code + '1')
     codes.extend(left_codes)
     codes.extend(right_codes)
     return codes
 
-def get_min_kv_pair(d):
-    min_key = min(d, key=d.get)
-    min_val = d[min_key]
-    return min_key, min_val
     
-def huffman_decoding(data, tree, huffman_code):
-    huffman_to_char = {val: key for key, val in huffman_code.items()}
+def huffman_decoding(data, tree):
     decoded_string = ''
-    cur_prefix = ''
+    cur_node = tree
     for char in data:
-        cur_prefix += char
-        if huffman_to_char.get(cur_prefix) is not None:
-            decoded_string += huffman_to_char[cur_prefix]
-            cur_prefix = ''
+        if tree.left is None and tree.right is None:
+            decoded_string += tree.char
+            continue
+        if char == '0':
+            cur_node = cur_node.left
+        elif char == '1':
+            cur_node = cur_node.right
+        if cur_node.left is None and cur_node.right is None:
+            decoded_string += cur_node.char
+            cur_node = tree
     return decoded_string
 
 
-def main():
-    encoded_data, huff_tree, huff_code = huffman_encoding("b")
-    print(huff_code)
-    decoded_msg = huffman_decoding(encoded_data, huff_tree, huff_code)
-    print(decoded_msg)
-    # min_heap = PriorityQueue()
-    # min_heap.insert(HTNode(9))
-    # min_heap.insert(HTNode(7))
-    # min_heap.insert(HTNode(8))
-    # min_heap.insert(HTNode(1))
+if __name__ == "__main__":
+    codes = {}
 
+    a_great_sentence = "The bird is the word"
 
-    # while min_heap.size > 0:
-    #     print(min_heap.extract_min())
+    print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
 
+    encoded_data, tree = huffman_encoding(a_great_sentence)
 
+    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
 
-if __name__ == '__main__':
-    main() 
+    decoded_data = huffman_decoding(encoded_data, tree)
 
-
-
-
-
-# if __name__ == "__main__":
-#     codes = {}
-
-#     a_great_sentence = "The bird is the word"
-
-#     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-#     print ("The content of the data is: {}\n".format(a_great_sentence))
-
-#     encoded_data, tree = huffman_encoding(a_great_sentence)
-
-#     print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-#     print ("The content of the encoded data is: {}\n".format(encoded_data))
-
-#     decoded_data = huffman_decoding(encoded_data, tree)
-
-#     print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-#     print ("The content of the encoded data is: {}\n".format(decoded_data))
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
