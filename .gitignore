@@ -6,7 +6,7 @@ log/
 .vscode/
 # C extensions
 *.so
-
+Udacity_ND/P1/testdir/
 # Distribution / packaging
 .Python
 build/

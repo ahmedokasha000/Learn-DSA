@@ -2,6 +2,9 @@ import sys
 
 
 class HTNode:
+    """
+    Huffman tree node.
+    """
     def __init__(self, value=0, char='', left=None, right=None):
         self.left = left
         self.right = right
@@ -13,6 +16,9 @@ class HTNode:
 
 
 class PriorityQueue:
+    """
+    Priority queue for storing huffman tree nodes. Implemented using min binary heap.
+    """
     def __init__(self):
         self._heap = []
         self._size = 0
@@ -69,16 +75,23 @@ class PriorityQueue:
 
 
 def huffman_encoding(data):
+    # 1. Find each letter frequency and save in a hash map
     letter_occurrences = {}
-    priority_queue = PriorityQueue()
+    if not data:
+        return '', None
     for letter in data:
         if letter in letter_occurrences:
-            letter_occurrences[letter] +=1
+            letter_occurrences[letter] += 1
         else:
             letter_occurrences[letter] = 1
+
+    # 2. Create a huffman tree node for each letter frequency
+    # Create a priority queue to store all huffman tree node
+    priority_queue = PriorityQueue()
     for key, val in letter_occurrences.items():
         priority_queue.insert(HTNode(value=val, char=key))
 
+    # 3. Build the huffman tree
     root = None
     while priority_queue.size > 1:
         left = priority_queue.extract_min()
@@ -86,24 +99,37 @@ def huffman_encoding(data):
         root = HTNode(value=left.value + right.value, left=left, right=right)
         priority_queue.insert(root)
     root = priority_queue.extract_min()
+
+    # 4. create a hashmap for huffman code
+    # in case we have only one letter to encode, give it a code of 0
     if root.left is None and root.right is None:
         huffman_code = {root.char: '0'}
     else:
         huffman_code = dict(find_huffman_codes(root))
-    # print(huffman_code)
+
+    # 5. encode the data
     encoded_data = encode_data(data, huffman_code)
-    ## get first two keys with min value
     return encoded_data, root
 
+
 def encode_data(data, huffman_code):
+    """
+    encode a provided string given given a huffman code hashmap.
+    """
     encoded_string = ''
     for char in data:
         encoded_string += huffman_code.get(char)
     return encoded_string
-        
+
+
 def find_huffman_codes(node, code=''):
+    """
+    a recursive function that will create a hashmap for each letter huffman code given
+    the tree root.
+    """
     codes = []
     left_codes, right_codes = [], []
+    # base condition when we reach leaf nodes
     if node.left is None and node.right is None:
         return [(node.char, code)]
     if node.left is not None:
@@ -114,8 +140,11 @@ def find_huffman_codes(node, code=''):
     codes.extend(right_codes)
     return codes
 
-    
+
 def huffman_decoding(data, tree):
+    """
+    decoding a string using huffman tree.
+    """
     decoded_string = ''
     cur_node = tree
     for char in data:
@@ -132,9 +161,39 @@ def huffman_decoding(data, tree):
     return decoded_string
 
 
-if __name__ == "__main__":
-    codes = {}
+def test_cases():
+    # Test Case 1
+    sentence = "a"
+    encoded_data, tree = huffman_encoding(sentence)
+    decoded_data = huffman_decoding(encoded_data, tree)
+    # print(tree)
+    assert sentence == decoded_data, "Test Case 1 Failed."
+    print("Test Case 1 passed.")
 
+    # Test Case 2
+    sentence = "AAAAAAABBBCCCCCCCDDEEEEEE"
+    encoded_data, tree = huffman_encoding(sentence)
+    codes = dict(find_huffman_codes(tree))
+    decoded_data = huffman_decoding(encoded_data, tree)
+    # print(tree)
+    # A and C occurances are same, so can be flipped sometimes.
+    assert codes['D'] == '000' and codes['B'] == '001' and codes['E'] == '01' and (
+        codes['A'] == '11' or codes['A'] == '10') and (codes['C'] == '11' or codes['C'] == '10') and (codes['C'] != codes['A']), "Test Case 2 Failed."
+    assert sentence == decoded_data, "Test Case 2 Failed."
+    print("Test Case 2 passed.")
+
+    # Test Case 3
+    sentence = ""
+    encoded_data, tree = huffman_encoding(sentence)
+    decoded_data = huffman_decoding(encoded_data, tree)
+    # print(tree)
+    assert sentence == decoded_data, "Test Case 3 Failed."
+    print("Test Case 3 passed.")
+
+
+def main():
+
+    codes = {}
     a_great_sentence = "The bird is the word"
 
     print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
@@ -149,3 +208,9 @@ if __name__ == "__main__":
 
     print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    test_cases()
+
+
+if __name__ == "__main__":
+    main()

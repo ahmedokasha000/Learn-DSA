@@ -25,12 +25,34 @@ def find_files(suffix, path):
     return valid_paths
 
 
+def test_cases():
+
+    path = "/media/ahmed000/Personal/Learning/Learn-DSA/Udacity_ND/P1/testdir"
+
+    # Test Case 1
+    res = find_files('.c', path)
+    assert len(res) == 4
+    print("Test Case 1 passed.")
+
+    # Test Case 2
+    res = find_files('.c', path)
+    valid_path = False
+    for file_path in res:
+        if file_path.endswith("testdir/subdir3/subsubdir1/b.c"):
+            valid_path = True
+            break
+    assert valid_path
+    print("Test Case 2 passed.")
+
+    # Test Case 3
+    res = find_files('.py', path)
+    assert len(res) == 0
+    print("Test Case 3 passed.")
+
+
 def main():
-    path = "/meda/ahmed000/Personal/Learning/Learn-DSA"
-    print(f"{isdir(path)} , {isdir(path)}")
-    res = find_files('.pyc',path)
-    print('\n'.join(res))
-    pass
+    test_cases()
+
 
 if __name__ == '__main__':
     try:
