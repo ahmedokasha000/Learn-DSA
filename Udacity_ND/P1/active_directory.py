@@ -23,10 +23,11 @@ class Group(object):
 def is_user_in_group(user, group):
     """
     Return True if user is in the group, False otherwise.
-
-    Args:
-      user(str): user name/id
-      group(class:Group): group to check user membership against
+    
+    :param user: user name/id.
+    :type user: str.
+    :param group: group to check user membership against.
+    :type group: Group.
     """
     result = False
     if user in group.users:
@@ -39,6 +40,35 @@ def is_user_in_group(user, group):
     return result
 
 
+def test_cases():
+
+    # Test Case 1, user in the second child group
+    parent = Group("parent")
+    child = Group("child")
+    sub_child = Group("subchild")
+    sub_child_user = "sub_child_user"
+    sub_child.add_user(sub_child_user)
+    child.add_group(sub_child)
+    parent.add_group(child)
+
+    assert is_user_in_group("sub_child_user", parent), "Test 1 failed."
+    print("Test 1 passed.")
+
+    # Test Case 2, user doesn't exist
+    parent = Group("parent")
+    assert is_user_in_group("sub_child_user2", parent) == False, "Test 2 failed."
+    print("Test 2 passed.")
+
+    # Test Case 3, user in the parent group
+    parent = Group("parent")
+    child = Group("child")
+    sub_child = Group("subchild")
+    sub_child_user = "sub_child_user"
+    child.add_user(sub_child_user)
+    child.add_group(sub_child)
+    parent.add_group(child)
+    assert is_user_in_group("sub_child_user", parent), "Test 3 failed."
+    print("Test 3 passed.")
 
 
 def main():
@@ -51,7 +81,9 @@ def main():
 
     child.add_group(sub_child)
     parent.add_group(child)
-    print (f"result = {is_user_in_group('sub_child_user', parent)}")
+    print(f"result = {is_user_in_group('sub_child_user', parent)}")
+    test_cases()
+
 
 if __name__ == '__main__':
     try:

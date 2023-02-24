@@ -6,12 +6,10 @@ from os.path import isfile, isdir, join, expanduser
 def find_files(suffix, path):
     """
     Find all files beneath path with file name suffix.
-    Args:
-      suffix(str): suffix if the file name to be found
-      path(str): path of the file system
-
-    Returns:
-       a list of paths
+    :param suffix: suffix if the file name to be found
+    :type suffix: str
+    :param path:  path of the file system
+    :type path: str
     """
     valid_paths = []
     if isfile(path):

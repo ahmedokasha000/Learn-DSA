@@ -1,4 +1,4 @@
-# Task 0 - LRU Cache
+# Task 1 - LRU Cache
 
 ## Code Design
 
@@ -14,7 +14,7 @@ The time complexity for the get() and set() operations of this LRU cache impleme
 
 The space complexity is also O(n), where n is the capacity of the cache, since the cache can store up to n key-value pairs.
 
-# Task 1 - File Recursion
+# Task 2 - File Recursion
 
 ## Code Design
 
@@ -64,3 +64,44 @@ We iterate over the encoded data only once.
 Complexity = O(n).
 
 No operation is taking space more than the length of input data for both encoding or decoding.
+
+
+# Task 4 - Active Directory
+
+## Code Design
+A recursive function is implemented to traverse all sub groups while checking users in these groups. The base case is reached once we find the user, in that case we will return and stop traversing other groups.
+
+## Complexity
+
+### Time Complexity
+O(n) where n is the number of all sub groups and the users inside.
+### Space Complexity
+
+Complexity = O(1). We don't have to store variables. however the space for storing stack frames will increase when the recursion depth increase.
+
+# Task 5 - Block chain
+
+## Code Design
+The code creates a Block class that includes all necessary attributes, including a reference to the previous block if exists. Then, a data structure is established to represent the blockchain, which is similar to a singly linked list, except that the tail of the chain is kept, and each block has a link to the previous one.
+
+## Complexity
+
+### Time Complexity
+- O(1) for insertion and pop operations.
+- O(n) searching, replace, or delete.
+### Space Complexity
+
+Complexity = O(n).
+
+# Task 6 - Union and Intersection
+
+## Code Design
+Two iterative functions are implemented to traverse the two lists only once. During the traversal, specific values are stored in a hash table (set) to facilitate faster access when required. Additionally, the output list is calculated during the iteration to prevent duplicating the computational complexity.
+
+## Complexity
+
+### Time Complexity
+- O(n+m) where n, m are the size of the two lists. Complexity is same for intersection and union.
+### Space Complexity
+
+- O(2(n+m)) which will end up with O(n+m). since we are using a hash table for storing some of these values. Results are almost the same for both union and intersection.

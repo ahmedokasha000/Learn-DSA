@@ -5,6 +5,16 @@ from datetime import datetime
 class Block:
 
     def __init__(self, timestamp, data, previous_hash=None):
+        """
+        A class that represents a block in a blockchain.
+
+        :param timestamp: The timestamp of the block creation.
+        :type timestamp: str
+        :param data: The data that the block contains.
+        :type data: Any
+        :param previous_hash: The hash of the previous block in the chain.
+        :type previous_hash: Block or None
+        """
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
@@ -12,6 +22,12 @@ class Block:
         self.next = None
 
     def calc_hash(self):
+        """
+        Calculate the hash value of the block using the SHA-256 algorithm.
+
+        :return: The hash value of the block.
+        :rtype: str
+        """
         sha = hashlib.sha256()
         hash_str = f"We are going to encode this string of data!".encode('utf-8')
         sha.update(hash_str)
@@ -22,11 +38,19 @@ class Block:
 
 
 class BlockChain:
+    """
+    A class that represents a blockchain.
+    """
     def __init__(self):
         self.tail = None
 
     def append(self, data):
-        """ Append a value to the end of the list. """
+        """
+        Append a block to the end of the blockchain.
+
+        :param data: The data to be added to the block.
+        :type data: Any
+        """
         node = Block(datetime.now().strftime("%H:%M %m/%d/%Y"), data)
 
         if self.tail is None:
@@ -68,16 +92,24 @@ class BlockChain:
             res += f"< Block (ts = {node.timestamp}, data = {node.data}, hash = {node.hash})>" + "\n"
             node = node.previous_hash
         return res
-# class BlockChain:
-#     def __init
-# Add your own test cases: include at least three test cases
-# and two of them must include edge cases, such as null, empty or very large values
 
-# Test Case 1
+def test_cases():
+    # Test Case 1, general
+    blockchain = BlockChain()
+    blockchain.append("first")
+    blockchain.append("second")
+    blockchain.append("third")
+    assert blockchain.pop().data == "third" and blockchain.pop().data == "second" and blockchain.pop().data == "first", "Test 1 failed."
+    print("Test 1 passed.")
+    # Test Case 2, test that block chain is now empty
+    assert blockchain.is_empty(), "Test 2 failed."
+    print("Test 2 passed.")
+    # Test Case 3, test the previous hash
+    blockchain.append("first")
+    blockchain.append("second")
+    assert blockchain.pop().previous_hash.data == "first", "Test 3 failed."
+    print("Test 3 passed.")
 
-# Test Case 2
-
-# Test Case 3
 
 
 def main():
@@ -85,10 +117,9 @@ def main():
     blockchain.append("hi, this is first block")
     blockchain.append("hi, this is second block")
     print(f"blockchain  = {blockchain}")
-
     print(f"result = {blockchain.pop()}")
     print(f"result = {blockchain.pop()}")
-
+    test_cases()
 
 if __name__ == '__main__':
     try:
