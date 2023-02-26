@@ -19,7 +19,7 @@ class Block:
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash()
-        self.next = None
+        self.previous = None
 
     def calc_hash(self):
         """
@@ -29,12 +29,12 @@ class Block:
         :rtype: str
         """
         sha = hashlib.sha256()
-        hash_str = f"We are going to encode this string of data!".encode('utf-8')
+        hash_str = f"{self.timestamp} {self.data}".encode('utf-8')
         sha.update(hash_str)
         return sha.hexdigest()
 
-    def __repr__(self):
-        return f"<Block (timestamp = {self.timestamp}, data = {self.data}, hash = {self.hash})>"
+    # def __repr__(self):
+    #     return f"<Block (timestamp = {self.timestamp}, data = {self.data}, hash = {self.hash})>"
 
 
 class BlockChain:
@@ -57,7 +57,8 @@ class BlockChain:
             self.tail = node
         else:
             temp = self.tail
-            node.previous_hash = temp
+            node.previous = temp
+            node.previous_hash = temp.hash
             self.tail = node
 
     def is_empty(self):
@@ -69,7 +70,7 @@ class BlockChain:
         node = self.tail
         while node is not None:
             llen += 1
-            node = node.previous_hash
+            node = node.previous
         return llen
 
     def pop(self):
@@ -77,21 +78,22 @@ class BlockChain:
         node = self.tail
         if node is None:
             raise IndexError(" pop from empty blockchain")
-        elif node.previous_hash is None:
+        elif node.previous is None:
             self.tail = None
             return node
         else:
             node = self.tail
-            self.tail = self.tail.previous_hash
+            self.tail = self.tail.previous
             return node
 
     def __repr__(self):
         res = ""
         node = self.tail
         while node is not None:
-            res += f"< Block (ts = {node.timestamp}, data = {node.data}, hash = {node.hash})>" + "\n"
-            node = node.previous_hash
+            res = f"< Block (ts = {node.timestamp}, data = {node.data}, hash = {node.hash}, previous_hash = {node.previous_hash})>" + "\n" + res
+            node = node.previous
         return res
+
 
 def test_cases():
     # Test Case 1, general
@@ -107,19 +109,18 @@ def test_cases():
     # Test Case 3, test the previous hash
     blockchain.append("first")
     blockchain.append("second")
-    assert blockchain.pop().previous_hash.data == "first", "Test 3 failed."
+    assert blockchain.pop().previous.data == "first", "Test 3 failed."
     print("Test 3 passed.")
-
 
 
 def main():
     blockchain = BlockChain()
     blockchain.append("hi, this is first block")
     blockchain.append("hi, this is second block")
-    print(f"blockchain  = {blockchain}")
-    print(f"result = {blockchain.pop()}")
-    print(f"result = {blockchain.pop()}")
+    blockchain.append("hi, this is third block")
+    print(blockchain)
     test_cases()
+
 
 if __name__ == '__main__':
     try:

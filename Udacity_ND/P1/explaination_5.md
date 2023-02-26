@@ -6,9 +6,9 @@ The code creates a Block class that includes all necessary attributes, including
 ## Complexity
 
 ### Time Complexity
-- O(1) for insertion and pop operations.
-- O(n) searching, replace, or delete.
+- O(1) for block chain **insertion** and **pop** operations since we will be adding to the end and accessing the last element.
+- O(n) searching, replace, or delete since we need to iterate over the block chanin.
+- O(n) for `len` function.
 ### Space Complexity
 
-Complexity = O(n).
-
+To create and store a block chain we will need to create **n** `Block` making complexity O(n).
