@@ -18,8 +18,8 @@ class Trie():
         cur_node = self.root
         for letter in word:
             cur_node = cur_node.children[letter]
-        else:
-            cur_node.is_word = True
+        
+        cur_node.is_word = True
 
     def exists(self, word):
         """
@@ -27,11 +27,23 @@ class Trie():
         """
         cur_node = self.root
         for letter in word:
-            if cur_node.children.get(letter) is None:
+            if letter not in cur_node.children:
                 return False
             else:
                 cur_node = cur_node.children[letter]
         return cur_node.is_word
+
+    def startsWith(self, prefix):
+        """
+        Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+        """
+        cur_node = self.root
+        for letter in prefix:
+            if letter not in cur_node.children:
+                return False
+            else:
+                cur_node = cur_node.children[letter]
+        return True
 
 
 def main():
