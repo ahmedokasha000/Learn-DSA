@@ -60,7 +60,7 @@ def __search_rotated_sorted_array(array, target, start, end):
 
 
 def test_search_rotated_array_basic():
-    assert search_rotated_array([6, 7, 8, 9, 10, 1, 2, 3, 4], 6) == 0, f"results are unordered, results = {search_rotated_array([6, 7, 8, 9, 10, 1, 2, 3, 4], 6)}"
+    assert search_rotated_array([6, 8, 9, 0, 1, 2, 3, 4, 5], 6) == 0, f"results are unordered, results = {search_rotated_array([6, 7, 8, 9, 10, 1, 2, 3, 4], 6)}"
     assert search_rotated_array([6, 7, 8, 9, 10, 1, 2, 3, 4], 1) == 5, f"results are unordered, results = {search_rotated_array([6, 7, 8, 9, 10, 1, 2, 3, 4], 1)}"
     assert search_rotated_array([6, 7, 8, 1, 2, 3, 4], 8) == 2, f"results are unordered, results = {search_rotated_array([6, 7, 8, 1, 2, 3, 4], 8)}"
     assert search_rotated_array([6, 7, 8, 1, 2, 3, 4], 1) == 3, f"results are unordered, results = {search_rotated_array([6, 7, 8, 1, 2, 3, 4], 1)}"
