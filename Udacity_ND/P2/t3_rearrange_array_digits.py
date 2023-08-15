@@ -1,3 +1,4 @@
+
 def quick_sort(data: list):
     """
     Quick sort algorithm for sorting a list of integers.

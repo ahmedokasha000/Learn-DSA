@@ -5,15 +5,15 @@ def sort_012(input_list):
     Args:
        input_list(list): List to be sorted
     """
-    last_0_index = -1
-    res = []
+    sum_0 = sum_1 = sum_2 = 0
     for val in input_list:
         if val == 2:
-            res.append(val)
+            sum_2 += 1
+        elif val == 1:
+            sum_1 += 1
         else:
-            res.insert(last_0_index + 1, val)
-        if val == 0:
-            last_0_index += 1
+            sum_0 += 1
+    res = [0] * sum_0 + [1] * sum_1 + [2] * sum_2
     return res
 
 
