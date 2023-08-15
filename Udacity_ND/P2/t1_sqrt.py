@@ -3,6 +3,7 @@
 def sqrt(value):
     return find_sqrt(value, 1, value - 1)
 
+
 def find_sqrt(value, start, end):
     """
     Find the square root of a number using binary search recursively.
@@ -47,10 +48,11 @@ def test_cases_sqrt():
     assert sqrt(19) == 4, f"results are unordered, results = {sqrt(19)}"
     assert sqrt(20) == 4, f"results are unordered, results = {sqrt(20)}"
 
-    
-    
+
 def main():
     # test_cases_sqrt()
     test_cases_sqrt2()
+
+
 if __name__ == '__main__':
     main()
