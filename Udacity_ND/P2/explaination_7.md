@@ -18,6 +18,7 @@
 **add_handler method (in Router):** O(k), as it's dominated by the time complexity of the add method in RouteTrie.
 
 **lookup method (in Router):** O(k), as it's dominated by the time complexity of the find method in RouteTrie.
+**_split_path (in Router):** O(m), where m is the length of the path string.
 
 ### Space Complexity
 
@@ -26,3 +27,14 @@
 **RouteTrie class:** O(n×k), where n is the number of paths and k is the average number of directories in a path.
 
 **Router class:** The space complexity is dominated by the RouteTrie, so it's O(n×k).
+
+
+**Modular Space Complexity**
+
+**add method (in RouteTrie):** O(1), where only cur_node variable is declared inside.This is because it traverses the path once.
+**find method (in RouteTrie):** O(1), where only cur_node variable is declared inside.
+
+**add_handler method (in Router):** O(1) for the add method (in RouteTrie) plus O(m) for _split_path methods. this leads to a total of O(m).
+
+**lookup method (in Router):** O(1) for the find method (in RouteTrie) plus O(m) for _split_path methods. this leads to a total of O(m).
+**_split_path (in Router):** The space complexity is also O(m), where m is the length of the path string.

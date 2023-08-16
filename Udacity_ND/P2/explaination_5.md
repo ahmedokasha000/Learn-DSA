@@ -24,9 +24,22 @@
 - find method: O(k), where k is the length of the prefix.
 
 - suffixes method: In the worst case, it can be O(n), where n is the total number of nodes in the trie.
+- startsWith method: O(k), where k is the length of the prefix.
 
 ### Space Complexity
 
 TrieNode class: O(c), where c is the number of children. In the worst case, if every letter is unique, c can be equal to the total number of letters across all words.
 
 Trie class: O(n×k), where n is the number of words and k is the average length of a word.
+
+**Modular Space Complexity**
+
+- insert method: O(1), where only cur_node variable is declared inside.
+
+- exists method: O(1), where only cur_node variable is declared inside. method.
+
+- startsWith method: O(1), where only cur_node variable is declared inside.
+
+- find method: O(1), where only cur_node variable is declared inside.
+
+- suffixes method: O(n), in worst cases where is the number of words

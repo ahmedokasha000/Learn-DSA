@@ -5,17 +5,20 @@ def sort_012(input_list):
     Args:
        input_list(list): List to be sorted
     """
-    sum_0 = sum_1 = sum_2 = 0
-    for val in input_list:
-        if val == 2:
-            sum_2 += 1
-        elif val == 1:
-            sum_1 += 1
+    end_0_index = -1
+    start_2_index = len(input_list)
+    cur_index = 0
+    while cur_index < start_2_index:
+        if input_list[cur_index] == 0:
+            input_list[end_0_index + 1], input_list[cur_index] = input_list[cur_index],  input_list[end_0_index + 1]
+            cur_index += 1
+            end_0_index += 1
+        elif input_list[cur_index] == 1:
+            cur_index += 1
         else:
-            sum_0 += 1
-    res = [0] * sum_0 + [1] * sum_1 + [2] * sum_2
-    return res
-
+            input_list[start_2_index - 1], input_list[cur_index] = input_list[cur_index],  input_list[start_2_index - 1]
+            start_2_index -= 1
+    return input_list
 
 def test_function(test_case):
     sorted_array = sort_012(test_case)
