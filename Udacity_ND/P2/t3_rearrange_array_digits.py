@@ -50,5 +50,21 @@ def test_function(test_case):
         print("Fail")
 
 
-test_function([[1, 2, 3, 4, 5], [542, 31]])
-test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
+def test_fx_wrapper():
+    """
+    Using test_function for testing different test cases and corner scenarios.
+    """
+    test_function([[1, 2, 3, 4, 5], [542, 31]])
+    test_function([[4, 6, 2, 5, 9, 8], [964, 852]])
+    test_function([[1, 1, 1, 1, 1], [111, 11]])
+    test_function([[], [0, 0]])
+    test_function([[1], [1, 0]])
+    test_function([[1, 2], [2, 1]])
+
+
+def main():
+    test_fx_wrapper()
+
+
+if __name__ == "__main__":
+    main()

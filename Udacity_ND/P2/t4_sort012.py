@@ -27,18 +27,20 @@ def test_function(test_case):
 
 
 def test_sort_012():
-    assert sort_012([0, 0, 2, 2, 2, 1, 1, 1, 2, 0, 2]) == [0, 0, 0, 1, 1, 1, 2, 2, 2, 2,
-                                                           2], f"results are unordered, results = {sort_012([0, 0, 2, 2, 2, 1, 1, 1, 2, 0, 2])}"
-    assert sort_012([2, 1, 2, 0, 0, 2, 1, 0, 1, 0, 0, 2]) == [0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2,
-                                                              2], f"results are unordered, results = {sort_012([2, 1, 2, 0, 0, 2, 1, 0, 1, 0, 0, 2])}"
-    assert sort_012([]) == [], f"results are unordered, results = {sort_012([])}"
-    assert sort_012([0, 0, 0, 0, 0, 0, 1, 1, 1, 1]) == [0, 0, 0, 0, 0, 0, 1, 1, 1, 1], f"results are unordered, results = {sort_012([0, 0, 0, 0, 0, 0, 1, 1, 1, 1])}"
-    assert sort_012([2, 2, 2, 2, 2, 2, 1, 1, 1, 1]) == [1, 1, 1, 1, 2, 2, 2, 2, 2, 2], f"results are unordered, results = {sort_012([2, 2, 2, 2, 2, 2, 1, 1, 1, 1])}"
+    """
+    Using test_function for testing different test cases and corner scenarios.
+    """
+    test_function([0, 0, 2, 2, 2, 1, 1, 1, 2, 0, 2])
+    test_function([2, 1, 2, 0, 0, 2, 1, 0, 1, 0, 0, 2])
+    test_function([])
+    test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1])
+    test_function([2, 2, 2, 2, 2, 2, 1, 1, 1, 1])
+    test_function([1, 1, 1, 1, 1, 1, 2, 2, 2, 2])
+    test_function([0, 0, 0, 0, 0, 0, 2, 2, 2, 2])
+    test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1])
+
 
 def main():
-    test_function([0, 0, 2, 2, 2, 1, 1, 1, 2, 0, 2])
-    test_function([2, 1, 2, 0, 0, 2, 1, 0, 1, 0, 0, 2, 2, 2, 1, 2, 0, 0, 0, 2, 1, 0, 2, 0, 0, 1])
-    test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
     test_sort_012()
 
 

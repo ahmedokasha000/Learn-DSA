@@ -84,6 +84,7 @@ def main():
     # assert search_rotated_array([1, 2], 2) == 1, f"results are unordered, results = {search_rotated_array([1, 2], 2)}"
 
     test_search_rotated_array_basic()
+    test_random_array_cases()
     test_corner_cases()
 
 
