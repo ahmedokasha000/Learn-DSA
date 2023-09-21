@@ -1,6 +1,7 @@
 
 from math import sqrt
 
+
 class PriorityQueue:
     def __init__(self):
         self._heap = []
@@ -56,26 +57,71 @@ class PriorityQueue:
             self._heap[ind], self._heap[min_index] = self._heap[min_index], self._heap[ind]
             self._percolate_down(min_index)
 
+    def find_node_by_id(self, value):
+        """Find the index of a value in the heap.
+        Returns:
+            int: The index of the value in the heap, or -1 if not found.
+        """
+        for i, node in enumerate(self._heap):
+            if node.id == id:
+                return i
+        return -1
+
+    def get_node_by_id(self, value):
+
+        node_ind = self.find_node_by_id(id)
+
+        if node_ind == -1:
+            return None
+        else:
+            return self._heap[node_ind]
+
+    def delete_node_by_id(self, value):
+        """Delete a value from the heap and re-heapify.
+        Returns:
+            bool: True if the value was deleted, False otherwise.
+        """
+        ind = self.find_node_by_id(id)
+        if ind == -1:
+            return False
+
+        # Swap the node with the last node and remove it
+        self._heap[ind], self._heap[-1] = self._heap[-1], self._heap[ind]
+        self._heap.pop()
+        self._size -= 1
+
+        # Re-heapify
+        self._percolate_down(ind)
+        self._percolate_up(ind)
+
+        return True
+
+
 class Node:
     def __init__(self, id, via_vertex, actual_cost, total_estimated_cost):
         self.id = id
         self.via_vertex = via_vertex
         self.actual_cost = actual_cost
         self.total_est_cost = total_estimated_cost
+
     def __lt__(self, other):
         """Less than comparison operator for priority queue. """
         return self.total_est_cost < other.total_est_cost
+
     def __eq__(self, other):
         """Equality comparison operator for priority queue. """
         return self.total_est_cost == other.total_est_cost
+
     def __gt__(self, other):
         """Greater than comparison operator for priority queue. """
         return self.total_est_cost > other.total_est_cost
 
+
 def heuristic_cost_estimate(vertex, goal_vertex):
     """Calculate the heuristic cost estimate between two vertices. Ecludian distance is used here."""
-    
+
     return sqrt((vertex[0] - goal_vertex[0])**2 + (vertex[1] - goal_vertex[1])**2)
+
 
 def road_distance(vertex1, vertex2):
     """ Calculate the road distance between two vertices."""
@@ -90,9 +136,9 @@ def shortest_path(m, start, goal):
         cur_node = next_vertex.extract_min()
         # Ignore nodes that are already in the route. This means we visited it already through a shorter path.
         if cur_node.id in route:
-            continue
-
-        route.append(cur_node.id)
+            route = route[:route.index(cur_node.id)+1]
+        else:
+            route.append(cur_node.id)
         if cur_node.id == goal:
             break
 
@@ -100,10 +146,17 @@ def shortest_path(m, start, goal):
             actual_cost = cur_node.actual_cost + road_distance(m.intersections[cur_node.id], m.intersections[road])
             total_est_cost = actual_cost + heuristic_cost_estimate(m.intersections[road], m.intersections[goal])
             next_city_node = Node(road, cur_node.id, actual_cost, total_est_cost)
-            next_vertex.insert(next_city_node)
+            vertex_old_node = next_vertex.get_node_by_id(road)
+            if vertex_old_node is not None:
+                if vertex_old_node.total_est_cost > next_city_node.total_est_cost:
+                    next_vertex.delete_node_by_id(vertex_old_node.id)
+                    next_vertex.insert(next_city_node)
+            else:
+                next_vertex.insert(next_city_node)
 
     print(f"shortest path called {route}")
     return route if route[-1] == goal else None
+
 
 class Map:
     intersectons = None
